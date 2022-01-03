@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
+import classes from "./NewTodo.module.css";
 
-const NewTodo = () => {
+const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
   // init: null, we need to be explicit
   const todoTextInputRef = useRef<HTMLInputElement>(null);
   //with help of React onSubmit property later
@@ -16,10 +17,12 @@ const NewTodo = () => {
       // throw an error
       return;
     }
+
+    props.onAddTodo(enteredText);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={classes.form}>
       <label htmlFor="text">Todo text</label>
       <input type="text" id="text" ref={todoTextInputRef} />
       <button>Add Todo</button>
